@@ -2,15 +2,15 @@
 
 **What is skrappr?**
 
-**skrappr** is a simple web scraper web app for practicing web scraping (and a bit of backend).
+**skrappr** is a simple scraper web app for practicing web scraping (and a bit of backend).
 
-Backend here may be a bit of overkill as this app's use case is only (and initially) intended for scraping data. I thought everything can be packed inside a single directory (like a monolithic type) and call it a day but instead I decided to separate both frontend and backend directories because of my current obsession with _modularity_ and _clean design_ and i wanna maximize everything just to learn it all (even if it means overcomplicating such simple stuff).
+The codebase may be a bit of overkill as this app's use case is only (and initially) intended for scraping data. I thought everything can be packed inside a single directory (like a monolithic type) and call it a day but instead I decided to separate both frontend and backend directories because of my current obsession with _modularity_ and _clean design_ and i wanna maximize everything just to learn it all (even if it means overcomplicating such simple stuff).
 
-**Stuff you can do with skrappr:**
+**Stuff you can do with skrappr (once this app's done lol):**
 
 - view a website's dom content
 - interact with the preview display, pick any elements you want to scrape
-- save scraped data in csv and json formats
+- save scraped data in csv and json formats (for now)
 
 ## Stacks (Node + TS)
 
