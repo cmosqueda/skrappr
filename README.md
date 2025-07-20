@@ -10,7 +10,7 @@ Backend here may be a bit of overkill as this app's use case is only (and initia
 
 - view a website's dom content
 - interact with the preview display, pick any elements you want to scrape
-- save scraped data in csv and json formats (for now)
+- save scraped data in csv and json formats
 
 ## Stacks (Node + TS)
 
@@ -56,4 +56,4 @@ root/
 
 5. Go back to the terminal where you accessed frontend. Run the vite server by entering `npm run dev`.
 6. Go back to the terminal where you accessed backend. Run the express server by entering `npm run dev`.
-7. App is now running. Access the frontend server in your browser.
+7. App is now running. Access the frontend server's URL (provided by vite) in your browser to open the web interface.
