@@ -52,7 +52,25 @@ export default function Home() {
       <UrlForm onSubmit={handleUrlSubmit} />
 
       {htmlContent && (
-        <PreviewDisplay htmlContent={htmlContent} onElementSelect={handleElementSelect} iframeRef={iframeRef} />
+        <>
+          <div className="w-full flex flex-col items-center">
+            <div className="flex gap-2 mt-4">
+              <button
+                onClick={toggleSelection}
+                className="px-4 py-2 bg-amber-300 text-black rounded hover:bg-amber-400 border border-black"
+              >
+                {isSelecting ? "Disable Select Mode" : "Enable Select Mode"}
+              </button>
+              <button
+                onClick={clearSelections}
+                className="px-4 py-2 bg-gray-200 text-black rounded hover:bg-gray-300 border border-black"
+              >
+                Clear Selection
+              </button>
+            </div>
+            <PreviewDisplay htmlContent={htmlContent} onElementSelect={handleElementSelect} iframeRef={iframeRef} />
+          </div>
+        </>
       )}
 
       {selectors.length > 0 && (
@@ -65,15 +83,6 @@ export default function Home() {
           </ul>
         </div>
       )}
-
-      <div className="flex gap-2 mt-4">
-        <button onClick={toggleSelection} className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
-          {isSelecting ? "Disable Select Mode" : "Enable Select Mode"}
-        </button>
-        <button onClick={clearSelections} className="px-4 py-2 bg-gray-400 text-white rounded hover:bg-gray-500">
-          Clear Selection
-        </button>
-      </div>
     </div>
   );
 }
