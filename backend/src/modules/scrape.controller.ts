@@ -25,7 +25,7 @@ export const getPreviewMeta = async (req: Request, res: Response) => {
 
   try {
     const preview = await extractPreviewMeta(url);
-    res.status(200).json(preview); // ✅ return safe preview metadata
+    res.status(200).json(preview); // return safe preview metadata
   } catch (error) {
     console.error("[Preview Meta Error]", error);
     res.status(500).json({ error: "Failed to load preview metadata" });

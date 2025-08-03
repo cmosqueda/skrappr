@@ -2,40 +2,22 @@ export const injectSelectorPickerScript = `
 <script>
 (function () {
   const selectedElements = new Set();
+  let selectionEnabled = false;
 
   function toggleSelection(el) {
     if (selectedElements.has(el)) {
-      el.style.outline = ""; // remove highlight
+      el.style.outline = "";
       selectedElements.delete(el);
-      console.log("Removed selection:",el);
     } else {
       el.style.outline = "2px solid #FFD230";
       selectedElements.add(el);
-      console.log("Selected:",el);
+
+      // Send selector back to parent
+      const selector = getUniqueSelector(el);
+      window.parent.postMessage({ type: "ELEMENT_SELECTED", selector }, "*");
     }
   }
 
-  document.addEventListener("click", function (e) {
-    e.preventDefault();
-    e.stopPropagation();
-
-    const target = e.target;
-
-    toggleSelection(target);
-  }, true);
-
-  // get CSS selectors of selected elements
-  window.getSelectedSelectors = function () {
-    return Array.from(selectedElements).map(el => getUniqueSelector(el));
-  };
-
-  // clear all selections
-  window.clearAllSelections = function () {
-    selectedElements.forEach(el => el.style.outline = "");
-    selectedElements.clear();
-  };
-
-  // Helper: generate a unique CSS selector
   function getUniqueSelector(el) {
     if (!el) return '';
     if (el.id) return '#' + el.id;
@@ -51,6 +33,35 @@ export const injectSelectorPickerScript = `
     }
     return path.join(' > ');
   }
+
+  function clearAllSelections() {
+    selectedElements.forEach(el => el.style.outline = "");
+    selectedElements.clear();
+  }
+
+  // Click handler only when enabled
+  const clickHandler = (e) => {
+    if (!selectionEnabled) return;
+    e.preventDefault();
+    e.stopPropagation();
+    toggleSelection(e.target);
+  };
+
+  document.addEventListener("click", clickHandler, true);
+
+  // Listen to messages from parent (React app)
+  window.addEventListener("message", (event) => {
+    const { type, enabled } = event.data;
+
+    if (type === "TOGGLE_SELECT_MODE") {
+      selectionEnabled = enabled;
+    }
+
+    if (type === "CLEAR_SELECTIONS") {
+      clearAllSelections();
+    }
+  });
+
 })();
 </script>
 `;

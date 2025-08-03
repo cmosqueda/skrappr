@@ -3,9 +3,10 @@ import React, { useEffect } from "react";
 interface PreviewDisplayProps {
   htmlContent: string;
   onElementSelect?: (selector: string) => void; // optional callback
+  iframeRef: React.RefObject<HTMLIFrameElement>;
 }
 
-const PreviewDisplay: React.FC<PreviewDisplayProps> = ({ htmlContent, onElementSelect }) => {
+const PreviewDisplay: React.FC<PreviewDisplayProps> = ({ htmlContent, onElementSelect, iframeRef }) => {
   useEffect(() => {
     const handleMessage = (event: MessageEvent) => {
       if (event.data?.type === "ELEMENT_SELECTED") {
@@ -26,14 +27,15 @@ const PreviewDisplay: React.FC<PreviewDisplayProps> = ({ htmlContent, onElementS
   return (
     <>
       <div className="sm:w-11/12 w-full flex flex-col items-center my-10 space-y-3">
-        <div className="flex items-center flex-wrap w-full gap-2 px-4 py-2 bg-gray-100 border rounded-lg border-gray-300 overflow-auto">
+        {/* <div className="flex items-center flex-wrap w-full gap-2 px-4 py-2 bg-gray-100 border rounded-lg border-gray-300 overflow-auto">
           <button className="px-3 py-1 text-sm font-medium bg-white border rounded hover:bg-gray-50">Select</button>
           <button className="px-3 py-1 text-sm font-medium bg-white border rounded hover:bg-gray-50">
             Clear Selection
           </button>
-        </div>
+        </div> */}
 
         <iframe
+          ref={iframeRef}
           srcDoc={htmlContent}
           sandbox="allow-same-origin allow-scripts"
           className="w-full h-[600px] border border-neutral-600 rounded-lg bg-white"
